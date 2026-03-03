@@ -1,0 +1,35 @@
+{
+  "name": "ai-sdlc-factory-multistack",
+  "version": "2.0.0",
+  "description": "AI-Native SDLC Factory — Multi-Stack kit for Claude Code. Document-first scaffold with multi-stack support.",
+  "techStack": "Configurable per project (Angular, React, Vue, Spring Boot, Node.js, Go, Rust, Django, FastAPI, etc.)",
+  "architecture": "DDD (Domain-Driven Design) by default",
+  "features": {
+    "multiStack": true,
+    "importedDocs": true,
+    "documentFirst": true,
+    "interactiveScaffold": true,
+    "workspaceIsolation": true,
+    "autoTechDetection": true
+  },
+  "supportedStacks": {
+    "frontend": ["Angular 17+", "React 18+", "Vue 3+", "Svelte 5+", "Custom"],
+    "backend": ["Spring Boot 3.x", "Node.js/Express", "NestJS", "Go", "Rust/Actix", "Django", "FastAPI", "Custom"],
+    "databases": ["PostgreSQL", "MySQL", "MongoDB", "Redis", "ClickHouse"],
+    "messaging": ["Kafka", "RabbitMQ"]
+  },
+  "prerequisites": {
+    "required": ["Claude Code CLI (latest)", "Python 3.x", "Git 2.x+", "GitHub CLI (gh)"],
+    "recommended": ["tmux"],
+    "stackSpecific": "Install per chosen stack (Node.js, Java/Maven, Go, Rust, etc.)"
+  },
+  "counts": {
+    "phases": 9,
+    "agents": 11,
+    "skills": 10,
+    "rules": "5+1 (auto-generated)",
+    "hooks": 2,
+    "scripts": 6
+  },
+  "createdAt": "2026-03-02"
+}

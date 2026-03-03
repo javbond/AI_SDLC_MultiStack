@@ -1,0 +1,43 @@
+{
+  "project": "",
+  "currentPhase": "not_started",
+  "techStack": {
+    "primary": {
+      "frontend": null,
+      "backend": null
+    },
+    "additional": [],
+    "databases": [],
+    "messaging": [],
+    "search": [],
+    "infrastructure": [],
+    "architecture": "DDD"
+  },
+  "importedDocs": {
+    "ideation": null,
+    "requirements": null,
+    "architecture": null,
+    "backlog": null,
+    "techSpecs": null,
+    "projectGuide": null
+  },
+  "phases": {
+    "ideation": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "requirements": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "project_setup": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "design": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "development": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "testing": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "security": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "code_review": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null },
+    "release": { "status": "pending", "artifacts": [], "gatesPassed": false, "completedAt": null, "source": null }
+  },
+  "github": {
+    "repo": "",
+    "owner": "",
+    "projectNumber": null
+  },
+  "sprints": [],
+  "createdAt": "",
+  "updatedAt": ""
+}
