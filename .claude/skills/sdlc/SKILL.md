@@ -90,17 +90,31 @@ Also list artifacts generated so far per phase.
 Advance to the next phase:
 
 1. Determine current phase from `state.json`
-2. Run quality gate check:
+2. **Check git working directory status** (warnings only — do not block):
+   ```bash
+   # Warn if uncommitted changes
+   if [ -n "$(git status --porcelain)" ]; then
+     echo "WARNING: Uncommitted changes detected. Recommend committing or stashing before advancing."
+   fi
+   # Warn if local main not in sync with remote
+   git fetch origin 2>/dev/null
+   LOCAL=$(git rev-parse main 2>/dev/null)
+   REMOTE=$(git rev-parse origin/main 2>/dev/null)
+   if [ "$LOCAL" != "$REMOTE" ] 2>/dev/null; then
+     echo "WARNING: Local main is not in sync with remote. Run: git checkout main && git pull origin main"
+   fi
+   ```
+3. Run quality gate check:
    ```bash
    bash scripts/sdlc-gate-check.sh [current_phase]
    ```
-3. If gate PASSES:
+4. If gate PASSES:
    - Update current phase status to `"completed"`, set `gatesPassed: true`, set `completedAt` to now
    - Set next phase status to `"in_progress"`
    - Update `currentPhase` to next phase name
    - Update `updatedAt`
    - Display success message with next steps and which skill to invoke
-4. If gate FAILS:
+5. If gate FAILS:
    - Display the failure reason from the gate check
    - List what artifacts/checks are missing
    - Suggest which skills to run to satisfy the gate
@@ -118,7 +132,7 @@ Phase-to-skill mapping for "Next Step" guidance:
 | development | `/scrum-sprint planning`, then `/develop [layer] [story]` |
 | testing | `/test-suite unit`, `/test-suite integration`, `/test-suite e2e` |
 | security | `/security-review`, `/compliance-checklist [industry]` |
-| code_review | `/pr-review create`, then `/pr-review review [pr-number]` |
+| code_review | `/pr-review create`, then `/pr-review review [pr-number]`, then `/pr-review merge [pr-number]` |
 | release | `/release notes`, `/release checklist`, `/release tag [version]` |
 
 ### `/sdlc gate [phase]`

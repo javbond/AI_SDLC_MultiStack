@@ -151,12 +151,40 @@ print(' '.join(dirs))
     check_file_exists "docs/security/security-review.md" || FAILED=1
     ;;
   code_review)
-    # Check if there's at least one PR
-    if command -v gh &> /dev/null; then
-      PR_COUNT=$(gh pr list --state all --limit 1 2>/dev/null | wc -l || echo "0")
-      if [ "$PR_COUNT" -eq 0 ]; then
-        echo "WARN: No pull requests found" >&2
+    # Check if remote origin exists before running PR checks
+    if ! git remote get-url origin &>/dev/null; then
+      echo "WARN: No remote origin configured — skipping PR merge checks" >&2
+    elif command -v gh &> /dev/null; then
+      # Check for merged PRs targeting main (GitHub Flow)
+      MERGED_COUNT=$(gh pr list --state merged --base main --limit 50 --json number 2>/dev/null | python3 -c "import sys,json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
+      if [ "$MERGED_COUNT" -eq 0 ]; then
+        echo "FAIL: No merged pull requests found targeting main" >&2
+        FAILED=1
       fi
+
+      # Check that the most recent merged PR had at least 1 approval (warning only)
+      LATEST_APPROVED=$(gh pr list --state merged --base main --limit 1 --json number,reviewDecision 2>/dev/null | python3 -c "
+import sys, json
+prs = json.load(sys.stdin)
+if prs and prs[0].get('reviewDecision') == 'APPROVED':
+    print('yes')
+else:
+    print('no')
+" 2>/dev/null || echo "unknown")
+      if [ "$LATEST_APPROVED" = "no" ]; then
+        echo "WARN: Most recent merged PR was not approved via review" >&2
+      fi
+
+      # Check local main sync with remote (warning only)
+      git fetch origin 2>/dev/null
+      LOCAL_MAIN=$(git rev-parse main 2>/dev/null || echo "none")
+      REMOTE_MAIN=$(git rev-parse origin/main 2>/dev/null || echo "none")
+      if [ "$LOCAL_MAIN" != "$REMOTE_MAIN" ] && [ "$LOCAL_MAIN" != "none" ]; then
+        echo "WARN: Local main ($LOCAL_MAIN) is not in sync with origin/main ($REMOTE_MAIN)" >&2
+        echo "WARN: Run 'git checkout main && git pull origin main' to sync" >&2
+      fi
+    else
+      echo "WARN: gh CLI not available — cannot verify PR merge status" >&2
     fi
     ;;
   release)

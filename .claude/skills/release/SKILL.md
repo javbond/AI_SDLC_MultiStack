@@ -125,8 +125,8 @@ Generate a pre-deployment checklist:
 # Deployment Checklist — v[version]
 
 ## Pre-Deployment
-- [ ] All PRs merged to release branch
-- [ ] All CI/CD checks passing
+- [ ] All sprint PRs merged to main
+- [ ] All CI/CD checks passing on main
 - [ ] Release notes generated and reviewed
 - [ ] Database migrations tested in staging
 - [ ] API backward compatibility verified
@@ -134,8 +134,8 @@ Generate a pre-deployment checklist:
 - [ ] Security scan passed (no critical/high findings)
 - [ ] Compliance requirements met
 
-## Deployment Steps
-1. [ ] Create release branch from develop: `git checkout -b release/v[version] develop`
+## Deployment Steps (GitHub Flow)
+1. [ ] Sync local main: `git checkout main && git pull origin main`
 2. [ ] Run full test suite: `mvn verify && ng test`
 3. [ ] Build production artifacts: `mvn package -Pprod && ng build --configuration=production`
 4. [ ] Deploy to staging environment
@@ -146,11 +146,9 @@ Generate a pre-deployment checklist:
 9. [ ] Monitor logs and metrics for 30 minutes
 
 ## Post-Deployment
-- [ ] Merge release branch to main: `git checkout main && git merge release/v[version]`
 - [ ] Tag release: `git tag -a v[version] -m "Release v[version]"`
 - [ ] Push tag: `git push origin v[version]`
 - [ ] Create GitHub Release with notes
-- [ ] Merge release branch back to develop
 - [ ] Update project board (move done items)
 - [ ] Close milestone
 - [ ] Notify stakeholders
@@ -175,6 +173,14 @@ Generate a pre-deployment checklist:
 ---
 
 ### `/release tag [version]`
+
+#### Step 0: Sync main Before Release
+```bash
+# Ensure local main is up to date before tagging
+git fetch origin
+git checkout main
+git pull origin main
+```
 
 #### Step 1: Validate Readiness
 ```bash
@@ -214,12 +220,20 @@ if [ -n "$MILESTONE_NUM" ]; then
 fi
 ```
 
+#### Step 5: Verify Sync
+```bash
+# Confirm local main matches remote after tagging
+echo "Branch sync status:"
+echo "  main: $(git rev-parse --short main) (local) vs $(git rev-parse --short origin/main) (remote)"
+```
+
 ```
 Release v[version] Complete!
 
 Tag: v[version]
 GitHub Release: [URL]
 Release Notes: docs/releases/v[version]-release-notes.md
+Branch: main (synced, tagged)
 
 The SDLC cycle is complete for this release.
 Run /sdlc status to see the final dashboard.

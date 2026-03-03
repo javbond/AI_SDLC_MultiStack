@@ -33,6 +33,34 @@ You are a Full-Stack Development Lead. You coordinate implementation of user sto
 Parse `$ARGUMENTS` to determine the layer and user story.
 
 ### Before Coding
+0. **Sync and prepare branch** (GitHub Flow):
+   ```bash
+   # Ensure main is up to date
+   git fetch origin
+   git checkout main
+   git pull origin main
+
+   # Determine feature branch name from user story
+   # Convention: feature/US-XXX-short-desc (from 01-general.md)
+   BRANCH="feature/$2"
+
+   # Check if feature branch exists
+   if git show-ref --verify --quiet "refs/heads/$BRANCH"; then
+     # Branch exists — switch to it and merge latest main
+     git checkout "$BRANCH"
+     git merge main
+   else
+     # Create new feature branch from main
+     git checkout -b "$BRANCH" main
+   fi
+
+   # Verify clean working directory
+   if [ -n "$(git status --porcelain)" ]; then
+     echo "WARNING: Uncommitted changes detected. Stash or commit before proceeding."
+   fi
+   ```
+   If the working directory is not clean, **STOP** and ask the user whether to stash or commit the changes before proceeding.
+
 1. **Read the user story**: If a story ID is provided, fetch from GitHub:
    ```bash
    gh issue list --search "US-XXX" --limit 1
@@ -228,6 +256,20 @@ Check `docs/tech-specs/shared-schemas/` for cross-workspace contracts (gRPC prot
 Ensure the workspace implementation adheres to these shared contracts.
 
 ### After Implementation
+
+0. **Commit and push work**:
+   - Stage the files created during this implementation (do NOT use `git add -A` which may include secrets or build artifacts)
+   ```bash
+   # Stage specific files created/modified
+   git add [list of files created]
+
+   # Commit with conventional commit format
+   git commit -m "feat(bounded-context): implement [User Story ID] — [short description]"
+
+   # Push feature branch to remote
+   git push -u origin "$(git branch --show-current)"
+   ```
+   Ensure the commit message follows conventional commits format from `.claude/rules/01-general.md`.
 
 1. **Update sprint progress**:
    - Comment on the GitHub issue with implementation status
