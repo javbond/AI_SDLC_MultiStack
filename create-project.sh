@@ -542,8 +542,8 @@ state['techStack']['infrastructure'] = merged_tech.get('infrastructure', [])
 state['techStack']['additional'] = additional_ws
 
 # Imported docs tracking
-doc_files = [$(printf '"%s",' "${DOC_FILES[@]}")]
-if doc_files:
+doc_files = [f for f in [$(printf '"%s",' "${DOC_FILES[@]}")] if f.strip()]
+if doc_files and doc_files[0]:
     import os
     first_doc = os.path.basename(doc_files[0])
     first_name = os.path.splitext(first_doc)[0]

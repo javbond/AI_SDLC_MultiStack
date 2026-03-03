@@ -23,14 +23,18 @@ fi
 
 mkdir -p "$(dirname "$OUTPUT_FILE")"
 
-python3 << PYEOF
+export GEN_STATE_FILE="$STATE_FILE"
+export GEN_OUTPUT_FILE="$OUTPUT_FILE"
+export GEN_PROJECT_ROOT="$PROJECT_ROOT"
+
+python3 << 'PYEOF'
 import json
 import os
 from datetime import datetime, timezone
 
-state_file = '$STATE_FILE'
-output_file = '$OUTPUT_FILE'
-project_root = '$PROJECT_ROOT'
+state_file = os.environ['GEN_STATE_FILE']
+output_file = os.environ['GEN_OUTPUT_FILE']
+project_root = os.environ['GEN_PROJECT_ROOT']
 
 with open(state_file, 'r') as f:
     state = json.load(f)
@@ -186,11 +190,11 @@ lines.append('')
 lines.append('1. **ALWAYS** read this file FIRST before starting any work')
 lines.append('2. Be aware of **ALL** tech stacks listed above — not just your primary workspace')
 lines.append('3. When reviewing/testing, check **ALL** workspace directories listed above')
-lines.append('4. Reference docs in `docs/tech-refs/` contain patterns and conventions for non-default stacks — **READ THEM**')
+lines.append('4. Reference docs in docs/tech-refs/ contain patterns and conventions for non-default stacks — **READ THEM**')
 lines.append('5. When generating architecture (HLD/LLD), cover **ALL** workspaces and their integration')
 lines.append('6. Build/test commands are workspace-specific — use the correct command for each directory')
 if imported and any(v for v in imported.values() if v):
-    lines.append('7. Check `importedDocs` in state.json — imported documents contain pre-existing project context')
+    lines.append('7. Check importedDocs in state.json — imported documents contain pre-existing project context')
 lines.append('')
 
 # Write output
