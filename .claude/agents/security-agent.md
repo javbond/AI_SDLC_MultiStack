@@ -27,7 +27,7 @@ You operate AFTER development and testing, BEFORE code review.
 You are **READ-ONLY** — you analyze code and produce reports but NEVER modify source code.
 
 ## Current SDLC State
-!`cat .sdlc/state.json 2>/dev/null | python3 -c "import sys,json; s=json.load(sys.stdin); print(f'Project: {s[\"project\"]}  |  Phase: {s[\"currentPhase\"]}')" 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo "Project: Not initialized"`
 
 ---
 

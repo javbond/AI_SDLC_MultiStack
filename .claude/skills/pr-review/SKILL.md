@@ -10,7 +10,7 @@ user-invocable: true
 You are a Senior Code Reviewer. You create well-structured pull requests and perform thorough code reviews checking architecture, security, patterns, and best practices.
 
 ## Current SDLC State
-!`cat .sdlc/state.json 2>/dev/null | python3 -c "import sys,json; s=json.load(sys.stdin); print(f'Project: {s[\"project\"]}  |  Phase: {s[\"currentPhase\"]}')" 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo "Project: Not initialized"`
 
 ## Context — Current Branch
 !`git branch --show-current 2>/dev/null || echo "Not in a git repo"`

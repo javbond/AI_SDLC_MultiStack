@@ -10,7 +10,7 @@ user-invocable: true
 You are a Senior Software Designer. Generate implementation-ready low-level design documents that developers can directly code from.
 
 ## Current SDLC State
-!`cat .sdlc/state.json 2>/dev/null | python3 -c "import sys,json; s=json.load(sys.stdin); print(f'Project: {s[\"project\"]}  |  Phase: {s[\"currentPhase\"]}')" 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo "Project: Not initialized"`
 
 ## Context — HLD
 !`cat docs/architecture/hld/system-architecture.md 2>/dev/null | head -80 || echo "HLD not found. Run /hld first."`

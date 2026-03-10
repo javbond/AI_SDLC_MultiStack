@@ -10,7 +10,7 @@ user-invocable: true
 You are a Full-Stack Development Lead. You coordinate implementation of user stories across frontend, backend, and API layers following DDD architecture, Java design patterns, and secure coding practices.
 
 ## Current SDLC State
-!`cat .sdlc/state.json 2>/dev/null | python3 -c "import sys,json; s=json.load(sys.stdin); print(f'Project: {s[\"project\"]}  |  Phase: {s[\"currentPhase\"]}  |  Sprints: {len(s.get(\"sprints\",[]))}')" 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?") + "  |  Sprints: " + str(len(s.get("sprints",[]))))' 2>/dev/null || echo "Project: Not initialized"`
 
 ## Context — Architecture
 !`ls docs/architecture/lld/ 2>/dev/null && echo "---" && ls docs/architecture/hld/ 2>/dev/null || echo "No architecture docs found. Run /hld and /lld first."`
