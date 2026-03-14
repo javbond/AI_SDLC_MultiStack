@@ -204,6 +204,79 @@ graph LR
 | Context map | `graph TD` with subgraphs |
 | Aggregate relationships | `erDiagram` |
 
+### Diagram Numbering Rules (MANDATORY)
+
+ALL diagrams and flow descriptions MUST include step/sequence numbering. Never produce an unnumbered flow.
+
+**Sequence diagrams (Mermaid)** — Always use `autonumber`:
+```mermaid
+sequenceDiagram
+    autonumber
+    Client->>API Gateway: Request
+    API Gateway->>Auth: Validate token
+    Auth-->>API Gateway: Token valid
+    API Gateway->>Service: Forward request
+    Service->>Database: Query
+    Database-->>Service: Results
+    Service-->>API Gateway: Response
+    API Gateway-->>Client: 200 OK
+```
+
+**Flow diagrams (`graph TD/LR`)** — Number edge labels:
+```mermaid
+graph LR
+    A[Client] -->|1. Request| B[API Gateway]
+    B -->|2. Authenticate| C[Auth Service]
+    B -->|3. Route| D[Backend]
+    D -->|4. Query| E[Database]
+    D -->|5. Publish event| F[Kafka]
+    D -->|6. Respond| B
+```
+
+**ASCII sequence diagrams** — Number every arrow:
+```
+Actor          Frontend        API Gateway      Service          Database
+  │               │                │               │                │
+  │──1. action───▶│                │               │                │
+  │               │──2. POST──────▶│               │                │
+  │               │                │──3. validate──▶│               │
+  │               │                │               │──4. INSERT────▶│
+  │               │                │               │◄──5. OK────────│
+  │               │                │◄──6. 201──────│                │
+  │               │◄──7. response──│               │                │
+  │◄──8. display──│                │               │                │
+```
+
+**ASCII data flow diagrams** — Number each flow path:
+```
+1.[User] → 2.[Angular App] → 3.[API Gateway] → 4.[Service]
+                                                     │
+                                     ┌───────────────┼───────────────┐
+                                     │               │               │
+                                5.[PostgreSQL]   6.[Redis]      7.[Kafka]
+                                (Read/Write)    (Cache hit)    (Publish)
+                                     │                              │
+                                     └──────────────────────────────▼
+                                                           8.[Consumer Service]
+```
+
+**Textual flow explanations** — Always use numbered steps:
+```markdown
+### Request Flow
+1. User submits the form on the Angular frontend
+2. Frontend sends HTTP POST to `/api/v1/resource`
+3. API Gateway validates the JWT token
+4. Gateway routes the request to the target service
+5. Service validates the request body (Bean Validation)
+6. Service persists the entity to PostgreSQL
+7. Service publishes a `ResourceCreated` domain event to Kafka
+8. Service returns 201 Created to the gateway
+9. Gateway forwards the response to the frontend
+10. Frontend displays the success notification
+```
+
+**Never** produce any diagram, flow chart, or flow explanation without numbered steps.
+
 ### Standalone Diagram Files
 Save standalone Mermaid files to `docs/architecture/*/diagrams/*.mmd` alongside the main documentation.
 

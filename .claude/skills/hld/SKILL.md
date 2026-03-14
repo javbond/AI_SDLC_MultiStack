@@ -170,15 +170,15 @@ Justification: [Why this style fits the requirements]
 
 ### 4.1 Data Flow Diagram
 ```
-[User] → [Angular App] → [API Gateway] → [Service]
-                                              │
-                              ┌───────────────┼───────────────┐
-                              │               │               │
-                         [PostgreSQL]     [Redis Cache]   [Kafka]
-                         (Read/Write)    (Read Cache)    (Events)
-                              │                              │
-                              └──────────────────────────────▼
-                                                    [Consumer Service]
+1.[User] → 2.[Angular App] → 3.[API Gateway] → 4.[Service]
+                                                     │
+                                     ┌───────────────┼───────────────┐
+                                     │               │               │
+                                5.[PostgreSQL]   6.[Redis Cache]  7.[Kafka]
+                                (Read/Write)    (Read Cache)     (Events)
+                                     │                              │
+                                     └──────────────────────────────▼
+                                                           8.[Consumer Service]
 ```
 
 ### 4.2 Data Storage Strategy
@@ -314,6 +314,8 @@ Use the Task tool to spawn an architect-agent subagent:
 
 ### Dual Diagram Output:
 The Architect Agent generates BOTH ASCII (terminal-friendly) and Mermaid (GitHub/VS Code rendered) diagrams. Standalone Mermaid files are saved to `docs/architecture/hld/diagrams/*.mmd`.
+
+**Numbering:** All diagrams and flow explanations must include step numbering. Sequence diagrams use `autonumber`. Flow diagrams use numbered edge labels (`|1. Step|`). ASCII diagrams number every arrow. Textual flow descriptions use numbered lists. See `.claude/agents/architect-agent.md` for examples.
 
 ### Agent produces:
 - `docs/architecture/hld/system-architecture.md` — System architecture with ADRs

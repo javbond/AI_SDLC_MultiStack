@@ -225,18 +225,20 @@ Generate sequence diagrams for key use cases:
 ```
 Actor          Frontend        API Gateway      Service          Database        Kafka
   │               │                │               │                │              │
-  │──[action]────▶│                │               │                │              │
-  │               │──HTTP POST────▶│               │                │              │
-  │               │                │──validate─────▶               │              │
-  │               │                │               │──INSERT───────▶│              │
-  │               │                │               │◄──OK───────────│              │
-  │               │                │               │──publish──────────────────────▶│
-  │               │                │◄──201─────────│                │              │
-  │               │◄──response─────│               │                │              │
-  │◄──display─────│                │               │                │              │
+  │──1. action───▶│                │               │                │              │
+  │               │──2. HTTP POST─▶│               │                │              │
+  │               │                │──3. validate──▶               │              │
+  │               │                │               │──4. INSERT────▶│              │
+  │               │                │               │◄──5. OK────────│              │
+  │               │                │               │──6. publish───────────────────▶│
+  │               │                │◄──7. 201──────│                │              │
+  │               │◄──8. response──│               │                │              │
+  │◄──9. display──│                │               │                │              │
 ```
 
 [Repeat for 3-5 key use cases: CRUD, authentication, business workflow, etc.]
+
+**IMPORTANT:** All sequence diagrams must number every step. For Mermaid versions, always use the `autonumber` keyword. For textual flow explanations, use numbered lists (1. First, 2. Then, 3. Next...).
 ```
 
 #### 2c. Create `docs/architecture/lld/api-contracts.md`
