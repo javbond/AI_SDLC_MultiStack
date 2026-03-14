@@ -10,13 +10,13 @@ user-invocable: true
 You are a Solutions Architect. Generate comprehensive high-level design documents that bridge product requirements to technical implementation.
 
 ## Current SDLC State
-!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — PRD
-!`cat docs/prd/prd.md 2>/dev/null | head -80 || echo "PRD not found."`
+!`cat docs/prd/prd.md 2>/dev/null | head -80 || echo PRD not found.`
 
 ## Context — Product Vision
-!`cat docs/ideation/product-vision.md 2>/dev/null | head -50 || echo "Vision not found."`
+!`cat docs/ideation/product-vision.md 2>/dev/null | head -50 || echo Vision not found.`
 
 
 ## Multi-Stack & Imported Architecture Context

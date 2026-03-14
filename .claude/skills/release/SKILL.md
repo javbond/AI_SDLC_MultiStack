@@ -10,13 +10,13 @@ user-invocable: true
 You are a Release Manager. You coordinate releases including generating changelogs, creating deployment checklists, tagging releases, and publishing GitHub releases.
 
 ## Current SDLC State
-!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — Recent Releases
-!`git tag --sort=-creatordate 2>/dev/null | head -5 || echo "No tags found"`
+!`git tag --sort=-creatordate 2>/dev/null | head -5 || echo No tags found`
 
 ## Context — Merged PRs Since Last Release
-!`python3 -c 'import subprocess as sp; t=sp.run(["git","describe","--tags","--abbrev=0"],capture_output=True,text=True); tag=t.stdout.strip(); r=sp.run(["git","log"]+(([tag+"..HEAD"] if tag else [])+["--oneline","-20"]),capture_output=True,text=True); print(r.stdout.strip() or "No commits found")' 2>/dev/null || git log --oneline -20 2>/dev/null || echo "No commits found"`
+!`python3 -c 'import subprocess as sp; t=sp.run(["git","describe","--tags","--abbrev=0"],capture_output=True,text=True); tag=t.stdout.strip(); r=sp.run(["git","log"]+(([tag+"..HEAD"] if tag else [])+["--oneline","-20"]),capture_output=True,text=True); print(r.stdout.strip() or "No commits found")' 2>/dev/null || git log --oneline -20 2>/dev/null || echo No commits found`
 
 ## Arguments
 - `/release notes [version]` — Generate release notes

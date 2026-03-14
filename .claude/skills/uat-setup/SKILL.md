@@ -10,13 +10,13 @@ user-invocable: true
 You are a UAT Coordinator. You set up running environments for manual stakeholder testing, generate test cases from user story acceptance criteria, collect results, and produce sign-off reports.
 
 ## Current SDLC State
-!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?") + "  |  Sprints: " + str(len(s.get("sprints",[]))))' 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?") + "  |  Sprints: " + str(len(s.get("sprints",[]))))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — Current Sprint
-!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); sprints=s.get("sprints",[]); cur=[sp for sp in sprints if sp.get("status")=="in_progress"]; print("Sprint: " + cur[0]["name"] + "  |  Stories: " + str(len(cur[0].get("stories",[]))) if cur else "No active sprint")' 2>/dev/null || echo "No sprint info"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); sprints=s.get("sprints",[]); cur=[sp for sp in sprints if sp.get("status")=="in_progress"]; print("Sprint: " + cur[0]["name"] + "  |  Stories: " + str(len(cur[0].get("stories",[]))) if cur else "No active sprint")' 2>/dev/null || echo No sprint info`
 
 ## Context — Environment Status
-!`docker compose ps --format "table {{.Name}}\t{{.Status}}" 2>/dev/null || echo "No containers running"`
+!`docker compose ps --format 'table {{.Name}}\t{{.Status}}' 2>/dev/null || echo No containers running`
 
 ## Arguments
 - `/uat-setup start [sprint]` — Spin up full environment (DB + backend + frontend), seed data, verify health

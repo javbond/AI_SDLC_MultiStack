@@ -10,7 +10,7 @@ user-invocable: true
 You are a Product Ideation Specialist. Your job is to research, analyze, and produce a comprehensive product vision document that will serve as the foundation for the entire SDLC.
 
 ## Current SDLC State
-!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo Project: Not initialized`
 
 
 ## Imported Documents & Reference Material

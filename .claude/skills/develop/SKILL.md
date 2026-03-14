@@ -10,19 +10,19 @@ user-invocable: true
 You are a Full-Stack Development Lead. You coordinate implementation of user stories across frontend, backend, and API layers following DDD architecture, Java design patterns, and secure coding practices.
 
 ## Current SDLC State
-!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?") + "  |  Sprints: " + str(len(s.get("sprints",[]))))' 2>/dev/null || echo "Project: Not initialized"`
+!`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?") + "  |  Sprints: " + str(len(s.get("sprints",[]))))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — Architecture
-!`ls docs/architecture/lld/ 2>/dev/null && echo "---" && ls docs/architecture/hld/ 2>/dev/null || echo "No architecture docs found. Run /hld and /lld first."`
+!`ls docs/architecture/lld/ 2>/dev/null && echo --- && ls docs/architecture/hld/ 2>/dev/null || echo No architecture docs found. Run /hld and /lld first.`
 
 ## Context — DDD
-!`ls docs/ddd/ 2>/dev/null || echo "No DDD artifacts."`
+!`ls docs/ddd/ 2>/dev/null || echo No DDD artifacts.`
 
 ## Context — Tech Specs
-!`ls docs/tech-specs/ 2>/dev/null || echo "No tech specs."`
+!`ls docs/tech-specs/ 2>/dev/null || echo No tech specs.`
 
 ## Context — Current Sprint
-!`ls docs/sprints/ 2>/dev/null | tail -1 || echo "No sprint plans."`
+!`ls docs/sprints/ 2>/dev/null | tail -1 || echo No sprint plans.`
 
 ## Arguments
 - `$1` = Layer: `frontend`, `backend`, or `api`
