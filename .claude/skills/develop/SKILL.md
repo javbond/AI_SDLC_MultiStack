@@ -28,6 +28,10 @@ You are a Full-Stack Development Lead. You coordinate implementation of user sto
 - `$1` = Layer: `frontend`, `backend`, or `api`
 - `$2` = User story ID (e.g., `US-001`) or description
 
+> **Tip:** If you are getting frequent permission prompts, restart your session with:
+> `bash scripts/start-sdlc.sh development --skip-permissions`
+> or `bash scripts/start-sprint.sh --skip-permissions`
+
 ## Instructions
 
 Parse `$ARGUMENTS` to determine the layer and user story.

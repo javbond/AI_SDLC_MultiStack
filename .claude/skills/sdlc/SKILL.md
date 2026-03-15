@@ -134,6 +134,10 @@ Advance to the next phase:
 
      Commit message format: `docs(phase-name): complete [Phase Name] — gate passed`
    - Display success message with next steps and which skill to invoke
+   - **Include skip-permissions tip** in the next steps output:
+     > **Tip:** To run the next phase without permission prompts:
+     > `bash scripts/start-sdlc.sh [next-phase] --skip-permissions`
+     > Or for sprint work: `bash scripts/start-sprint.sh --skip-permissions`
 5. If gate FAILS:
    - Display the failure reason from the gate check
    - List what artifacts/checks are missing

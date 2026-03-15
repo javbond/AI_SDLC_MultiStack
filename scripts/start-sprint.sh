@@ -1,35 +1,35 @@
 #!/bin/bash
-# scripts/start-sdlc.sh — Launch SDLC Factory session with Agent Teams
-# Usage: bash scripts/start-sdlc.sh [phase] [--skip-permissions|-s]
+# scripts/start-sprint.sh — Launch Claude Code for sprint execution
+# Usage: bash scripts/start-sprint.sh [--skip-permissions|-s] [sprint-number]
 #
 # Options:
 #   --skip-permissions, -s  Launch with --dangerously-skip-permissions (no tool prompts)
-#   [phase]                 Jump to a specific SDLC phase on launch
+#   [sprint-number]         Auto-invoke sprint planning for this sprint number
 #
 # Examples:
-#   bash scripts/start-sdlc.sh                          # Interactive (normal)
-#   bash scripts/start-sdlc.sh --skip-permissions       # Interactive (skip prompts)
-#   bash scripts/start-sdlc.sh development -s           # Phase + skip prompts
-#   bash scripts/start-sdlc.sh -s development           # Same (flag order flexible)
+#   bash scripts/start-sprint.sh                  # Interactive mode (normal)
+#   bash scripts/start-sprint.sh -s               # Interactive mode (skip prompts)
+#   bash scripts/start-sprint.sh -s 3             # Sprint 3, skip prompts
+#   bash scripts/start-sprint.sh 2                # Sprint 2, normal prompts
 #
-# This script launches Claude Code with Agent Teams enabled.
-# Agents are visible in tmux split panes for real-time collaboration.
+# This script is a shortcut for sprint-focused development sessions.
+# It launches Claude Code with Agent Teams and optionally starts sprint planning.
 
 set -e
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-# Parse arguments — extract --skip-permissions/-s flag and optional phase
+# Parse arguments
 SKIP_PERMISSIONS=false
-PHASE=""
+SPRINT_NUMBER=""
 
 for arg in "$@"; do
   case "$arg" in
     --skip-permissions|-s)
       SKIP_PERMISSIONS=true
       ;;
-    *)
-      PHASE="$arg"
+    [0-9]*)
+      SPRINT_NUMBER="$arg"
       ;;
   esac
 done
@@ -43,7 +43,7 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}┌──────────────────────────────────────────────────────────┐${NC}"
-echo -e "${BLUE}│          AI-NATIVE SDLC FACTORY — Session Launcher       │${NC}"
+echo -e "${BLUE}│          AI-NATIVE SDLC FACTORY — Sprint Launcher        │${NC}"
 echo -e "${BLUE}└──────────────────────────────────────────────────────────┘${NC}"
 echo ""
 
@@ -71,8 +71,7 @@ if command -v tmux &>/dev/null; then
   echo -e "${GREEN}✓ tmux found — split-pane mode available${NC}"
   TEAMMATE_MODE="tmux"
 else
-  echo -e "${YELLOW}⚠ tmux not found — using in-process mode (agents cycle in single pane)${NC}"
-  echo -e "${YELLOW}  Install tmux for split-pane visibility: brew install tmux${NC}"
+  echo -e "${YELLOW}⚠ tmux not found — using in-process mode${NC}"
   TEAMMATE_MODE="in-process"
 fi
 
@@ -89,17 +88,23 @@ echo ""
 if [ -f "$PROJECT_ROOT/.sdlc/state.json" ]; then
   CURRENT_PHASE=$(python3 -c "import json; print(json.load(open('$PROJECT_ROOT/.sdlc/state.json'))['currentPhase'])" 2>/dev/null || echo "unknown")
   PROJECT_NAME=$(python3 -c "import json; print(json.load(open('$PROJECT_ROOT/.sdlc/state.json'))['project'])" 2>/dev/null || echo "unknown")
+  SPRINT_COUNT=$(python3 -c "import json; print(len(json.load(open('$PROJECT_ROOT/.sdlc/state.json')).get('sprints',[])))" 2>/dev/null || echo "0")
   echo -e "${GREEN}Project: ${PROJECT_NAME}${NC}"
   echo -e "${GREEN}Current Phase: ${CURRENT_PHASE}${NC}"
+  echo -e "${GREEN}Sprints Completed: ${SPRINT_COUNT}${NC}"
 else
-  echo -e "${YELLOW}No project initialized. Run /sdlc init [project-name] after launch.${NC}"
+  echo -e "${YELLOW}No project initialized. Run /sdlc init [project-name] first.${NC}"
+  exit 1
 fi
 
 echo ""
-echo -e "${BLUE}Available Agents:${NC}"
-echo -e "  ${GREEN}THINKERS (Opus):${NC}  research, product, architect, security, review, validator"
-echo -e "  ${GREEN}BUILDERS (Sonnet):${NC} backend, frontend, qa"
-echo -e "  ${GREEN}EXECUTORS (Haiku):${NC} devops, memory"
+echo -e "${BLUE}Sprint Commands:${NC}"
+echo "  /scrum-sprint planning     — Plan the sprint"
+echo "  /develop backend [story]   — Implement backend"
+echo "  /develop frontend [story]  — Implement frontend"
+echo "  /build-with-agent-team     — Parallel execution"
+echo "  /test-suite unit           — Run unit tests"
+echo "  /scrum-sprint review       — Sprint review"
 echo ""
 
 # Build claude command arguments
@@ -108,21 +113,15 @@ if [ "$SKIP_PERMISSIONS" = true ]; then
   CLAUDE_ARGS+=(--dangerously-skip-permissions)
 fi
 
-# Launch Claude Code with agent teams enabled
-if [ -n "$PHASE" ]; then
-  echo -e "${BLUE}Starting SDLC Factory — Phase: ${PHASE}${NC}"
-  echo -e "${YELLOW}Launching Claude Code with teammate-mode: ${TEAMMATE_MODE}...${NC}"
+# Launch Claude Code
+if [ -n "$SPRINT_NUMBER" ]; then
+  echo -e "${BLUE}Starting Sprint ${SPRINT_NUMBER}...${NC}"
+  echo -e "${YELLOW}Launching Claude Code...${NC}"
   echo ""
-  cd "$PROJECT_ROOT" && claude "${CLAUDE_ARGS[@]}" -p "/sdlc phase $PHASE"
+  cd "$PROJECT_ROOT" && claude "${CLAUDE_ARGS[@]}" -p "/scrum-sprint planning"
 else
-  echo -e "${BLUE}Starting SDLC Factory — Interactive Mode${NC}"
-  echo -e "${YELLOW}Launching Claude Code with teammate-mode: ${TEAMMATE_MODE}...${NC}"
-  echo ""
-  echo -e "${GREEN}Quick Commands:${NC}"
-  echo "  /sdlc init [project]     — Start new project"
-  echo "  /sdlc status             — Show dashboard"
-  echo "  /sdlc next               — Advance to next phase"
-  echo "  /build-with-agent-team   — Parallel sprint execution"
+  echo -e "${BLUE}Starting Sprint Session — Interactive Mode${NC}"
+  echo -e "${YELLOW}Launching Claude Code...${NC}"
   echo ""
   cd "$PROJECT_ROOT" && claude "${CLAUDE_ARGS[@]}"
 fi
