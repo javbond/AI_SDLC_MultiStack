@@ -13,10 +13,10 @@ You are a Product Roadmap Specialist. Generate a comprehensive milestone-based r
 !`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — Read PRD
-!`cat docs/prd/prd.md 2>/dev/null | head -100 || echo PRD not found. Run /enterprise-prd first.`
+!`head -100 docs/prd/prd.md 2>/dev/null || echo PRD not found. Run /enterprise-prd first.`
 
 ## Context — Read Product Vision
-!`cat docs/ideation/product-vision.md 2>/dev/null | head -50 || echo Product vision not found.`
+!`head -50 docs/ideation/product-vision.md 2>/dev/null || echo Product vision not found.`
 
 ## Arguments
 - `$1` = Project name

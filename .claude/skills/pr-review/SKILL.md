@@ -14,7 +14,7 @@ You are a Senior Code Reviewer. You create well-structured pull requests and per
 
 ## Context — Current Branch
 !`git branch --show-current 2>/dev/null || echo Not in a git repo`
-!`git status --short 2>/dev/null | head -20 || echo No git status available`
+!`git status --short 2>/dev/null || echo No git status available`
 
 ## Arguments
 - `/pr-review create` — Create a new pull request

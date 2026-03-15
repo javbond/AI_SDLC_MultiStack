@@ -22,7 +22,7 @@ You are a Full-Stack Development Lead. You coordinate implementation of user sto
 !`ls docs/tech-specs/ 2>/dev/null || echo No tech specs.`
 
 ## Context — Current Sprint
-!`ls docs/sprints/ 2>/dev/null | tail -1 || echo No sprint plans.`
+!`python3 -c 'import os; d="docs/sprints"; f=sorted(os.listdir(d)) if os.path.isdir(d) else []; print(f[-1] if f else "No sprint plans.")'`
 
 ## Arguments
 - `$1` = Layer: `frontend`, `backend`, or `api`

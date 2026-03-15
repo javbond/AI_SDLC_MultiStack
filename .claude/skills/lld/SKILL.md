@@ -13,13 +13,13 @@ You are a Senior Software Designer. Generate implementation-ready low-level desi
 !`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — HLD
-!`cat docs/architecture/hld/system-architecture.md 2>/dev/null | head -80 || echo HLD not found. Run /hld first.`
+!`head -80 docs/architecture/hld/system-architecture.md 2>/dev/null || echo HLD not found. Run /hld first.`
 
 ## Context — DDD Artifacts
 !`ls docs/ddd/ 2>/dev/null || echo No DDD artifacts yet. Consider running /ddd-architect first.`
 
 ## Context — PRD
-!`cat docs/prd/prd.md 2>/dev/null | head -50 || echo PRD not found.`
+!`head -50 docs/prd/prd.md 2>/dev/null || echo PRD not found.`
 
 
 ## Multi-Stack & Imported Design Context

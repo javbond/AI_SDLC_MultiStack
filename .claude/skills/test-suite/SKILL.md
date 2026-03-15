@@ -13,8 +13,8 @@ You are a QA Engineering Lead. You coordinate comprehensive testing across unit,
 !`python3 -c 'import json; s=json.load(open(".sdlc/state.json")); print("Project: " + s.get("project","?") + "  |  Phase: " + s.get("currentPhase","?"))' 2>/dev/null || echo Project: Not initialized`
 
 ## Context — Source Code
-!`find backend/src -name '*.java' -type f 2>/dev/null | head -20 || echo No backend source found.`
-!`find frontend/src -name '*.ts' -not -name '*.spec.ts' -type f 2>/dev/null | head -20 || echo No frontend source found.`
+!`python3 -c 'import glob; f=glob.glob("backend/src/**/*.java",recursive=True)[:20]; print(chr(10).join(f) if f else "No backend source found.")'`
+!`python3 -c 'import glob; f=[x for x in glob.glob("frontend/src/**/*.ts",recursive=True) if not x.endswith(".spec.ts")][:20]; print(chr(10).join(f) if f else "No frontend source found.")'`
 
 ## Arguments
 Parse `$ARGUMENTS` for the test type:
