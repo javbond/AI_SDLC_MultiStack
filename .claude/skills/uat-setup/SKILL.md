@@ -3,6 +3,17 @@ name: uat-setup
 description: UAT environment setup and acceptance testing. Spins up the full stack (database, backend, frontend), generates test cases from acceptance criteria, collects pass/fail results, and produces UAT reports. Use after automated tests pass and before security review.
 argument-hint: [action] [sprint]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(docker:*)
+  - Bash(mvn:*)
+  - Bash(npm:*)
+  - Bash(python3:*)
+  - Bash(mkdir:*)
 ---
 
 # User Acceptance Testing (UAT)

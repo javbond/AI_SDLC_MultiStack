@@ -3,6 +3,15 @@ name: pr-review
 description: Pull request creation and code review. Creates well-structured PRs linked to user stories and performs automated code reviews checking for patterns, security, and best practices.
 argument-hint: [action] [pr-number]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(git:*)
+  - Bash(gh:*)
+  - Bash(python3:*)
 ---
 
 # PR Creation & Code Review

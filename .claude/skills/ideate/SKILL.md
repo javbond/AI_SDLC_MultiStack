@@ -3,6 +3,16 @@ name: ideate
 description: Product ideation and research agent. Generates product vision, market analysis, problem statements, and value propositions. Use at the start of any new software project.
 argument-hint: [project-name] [domain/industry]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(python3:*)
+  - Bash(mkdir:*)
+  - WebSearch
+  - WebFetch
 ---
 
 # Product Ideation & Research

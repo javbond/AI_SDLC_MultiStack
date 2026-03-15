@@ -3,6 +3,14 @@ name: roadmap
 description: Product roadmap generator. Creates milestone-based roadmaps with Gantt charts, maps milestones to sprints, and creates GitHub milestones. Use after PRD is complete.
 argument-hint: [project-name]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(gh:*)
+  - Bash(python3:*)
 ---
 
 # Product Roadmap Generator

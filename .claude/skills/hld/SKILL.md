@@ -3,6 +3,14 @@ name: hld
 description: High-Level Design generator. Creates system architecture, component diagrams, technology decisions, deployment architecture, and data flow diagrams. Use after PRD is complete and before low-level design.
 argument-hint: [project-name]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(mkdir:*)
+  - Bash(python3:*)
 ---
 
 # High-Level Design (HLD) Generator

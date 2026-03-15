@@ -3,6 +3,19 @@ name: develop
 description: Development coordinator. Implements frontend (Angular), backend (Spring Boot), and API layers following DDD patterns and project conventions. Use during sprint execution to implement user stories.
 argument-hint: [layer] [user-story-id]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(git:*)
+  - Bash(mvn:*)
+  - Bash(npm:*)
+  - Bash(npx:*)
+  - Bash(ng:*)
+  - Bash(mkdir:*)
+  - Bash(python3:*)
 ---
 
 # Development Coordinator

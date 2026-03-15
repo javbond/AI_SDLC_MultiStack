@@ -3,6 +3,17 @@ name: sdlc
 description: Master SDLC orchestrator. Tracks project lifecycle phases, enforces quality gates, and coordinates all development skills. Use for starting new projects, checking status, or advancing to next phases.
 argument-hint: [action] [project-name]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(git:*)
+  - Bash(gh:*)
+  - Bash(python3:*)
+  - Bash(mkdir:*)
+  - Bash(bash scripts/*)
 ---
 
 # AI-Native SDLC Orchestrator

@@ -3,6 +3,15 @@ name: release
 description: Release management. Generates release notes from merged PRs, creates deployment checklists, and manages Git tags and GitHub releases. Use after code review is complete.
 argument-hint: [action] [version]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(git:*)
+  - Bash(gh:*)
+  - Bash(python3:*)
 ---
 
 # Release Management

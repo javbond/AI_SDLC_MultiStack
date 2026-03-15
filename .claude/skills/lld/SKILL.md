@@ -3,6 +3,14 @@ name: lld
 description: Low-Level Design generator. Creates class diagrams, sequence diagrams, API contracts, database schemas, package structures, and interface definitions. Use after HLD and DDD are complete.
 argument-hint: [project-name]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(mkdir:*)
+  - Bash(python3:*)
 ---
 
 # Low-Level Design (LLD) Generator

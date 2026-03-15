@@ -3,6 +3,17 @@ name: test-suite
 description: Test suite coordinator. Manages unit tests, integration tests, E2E tests, and coverage reporting. Use during or after development to ensure code quality meets quality gate thresholds.
 argument-hint: [type]
 user-invocable: true
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash(mvn:*)
+  - Bash(npm:*)
+  - Bash(npx:*)
+  - Bash(ng:*)
+  - Bash(python3:*)
 ---
 
 # Test Suite Coordinator
