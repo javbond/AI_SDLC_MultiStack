@@ -164,7 +164,7 @@ Phase-to-skill mapping for "Next Step" guidance:
 | requirements | `/enterprise-prd [project] [domain]` |
 | project_setup | `/github-project-setup [repo] [owner]`, then `/agile-backlog [project] [sprints]`, then `/roadmap [project]` |
 | design | `/hld [project]`, `/lld [project]`, `/ddd-architect [domain]`, `/tech-specs [project] [stack]` |
-| development | `/scrum-sprint planning`, then `/develop [layer] [story]` |
+| development | `/scrum-sprint planning`, then `/sprint-build [sequential\|parallel]` or `/develop [layer] [story]` |
 | testing | `/test-suite unit`, `/test-suite integration`, `/test-suite e2e` |
 | uat | `/uat-setup start [sprint]`, `/uat-setup test-cases [sprint]`, `/uat-setup report [sprint]` |
 | security | `/security-review`, `/compliance-checklist [industry]` |

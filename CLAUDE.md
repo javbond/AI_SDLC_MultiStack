@@ -31,6 +31,7 @@ Architecture: Domain-Driven Design (DDD) by default.
 | 4. DDD | `/ddd-architect [domain]` | Bounded contexts, aggregates, domain events |
 | 4. Tech Specs | `/tech-specs [project] [stack]` | DB schemas, OpenAPI specs, workflows |
 | 5. Sprint | `/scrum-sprint [action]` | Sprint planning, progress, review, retro |
+| 5. Sprint Build | `/sprint-build [mode]` | Build all sprint stories sequentially or in parallel, auto-test, auto-UAT |
 | 5. Development | `/develop [layer] [story]` | Frontend/backend/API implementation |
 | 6. Testing | `/test-suite [type]` | Unit, integration, E2E, coverage |
 | 6. TDD | `/tdd-helper` | Test-driven development guidance |

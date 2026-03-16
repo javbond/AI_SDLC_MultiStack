@@ -315,6 +315,11 @@ Ensure the workspace implementation adheres to these shared contracts.
    3. Or /test-suite unit to run all tests
    ```
 
+> **Batch Mode:** To build ALL stories in the sprint at once (no prompts, auto-tests, auto-UAT):
+> - `/sprint-build sequential` — one story at a time, fully autonomous
+> - `/sprint-build parallel` — all independent stories simultaneously
+> Both modes auto-run tests and spin up UAT environment when done.
+
 ## Security Reminders
 - NEVER hardcode credentials, tokens, or secrets
 - Always validate input at controller level
