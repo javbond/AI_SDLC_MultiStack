@@ -310,45 +310,94 @@ sleep 10
 curl -s http://localhost:4200 2>/dev/null || echo "Frontend health check — adjust URL per project"
 ```
 
-### Step 5: Generate UAT Test Cases
-Read each completed story's acceptance criteria and generate `docs/uat/sprint-N-uat-test-cases.md`:
+### Step 5: Generate Detailed UAT Test Cases
+
+Read each completed story's acceptance criteria and generate `docs/uat/sprint-N-uat-test-cases.md` with **full step-by-step testing instructions**.
+
+This format matches `/uat-setup test-cases` exactly — the user should be able to open this file side-by-side with `http://localhost:4200` and walk through every test case.
 
 ```markdown
-# Sprint N — UAT Test Cases
+# UAT Test Cases — Sprint N
+
+## Overview
+- **Sprint**: Sprint N
+- **Generated**: [timestamp]
+- **Total Test Cases**: [count]
+- **Stories Covered**: [count]
+- **Estimated Testing Time**: [X] minutes (2-5 min per test case)
 
 ## Test Environment
-- Frontend: http://localhost:4200
-- Backend API: http://localhost:8080
-- Generated: [timestamp]
+- **Frontend**: http://localhost:4200
+- **Backend API**: http://localhost:8080
+- **Database**: PostgreSQL on localhost:5432
 
 ---
 
-## US-001: [Story Title]
+## Test Case Index
 
-### TC-001: [Test case name] (Priority: Critical)
-**Given** [precondition]
-**When** [action to perform in the frontend]
-**Then** [expected result visible in the UI]
-**Steps:**
-1. Navigate to [URL/page]
-2. [Specific UI action]
-3. Verify [expected outcome]
-**Result:** [ ] Pass  [ ] Fail  [ ] Blocked
-
-### TC-002: [Test case name] (Priority: High)
-...
+| ID | Story | Test Case | Priority | Status |
+|----|-------|-----------|----------|--------|
+| UAT-001 | US-XXX | [short description] | Critical | Pending |
+| UAT-002 | US-XXX | [short description] | High | Pending |
+| UAT-003 | US-YYY | [short description] | Critical | Pending |
+| ... | ... | ... | ... | ... |
 
 ---
 
-## US-002: [Story Title]
-...
+## Detailed Test Cases
+
+### UAT-001: [Test Case Title]
+**Story**: US-XXX — [Story Title]
+**Priority**: Critical
+**Preconditions**: [What must be true before testing — e.g., user logged in, data seeded]
+
+| Step | Action | Expected Result |
+|------|--------|----------------|
+| 1 | Navigate to http://localhost:4200/[page] | [Page loads, shows expected content] |
+| 2 | [Click button / Fill form / Select option] | [Expected UI response — toast, redirect, data change] |
+| 3 | [Verify data / Check display] | [Expected data visible / Correct format / Proper validation] |
+| 4 | [Edge case action if applicable] | [Proper error handling / Validation message shown] |
+
+**Test Data**: [Any specific data the tester needs — e.g., username: testuser, email: test@example.com]
+**Result**: [ ] Pass  [ ] Fail  [ ] Blocked  [ ] Skipped
+**Notes**: _[tester fills in during testing]_
 
 ---
 
-## Summary
-- Total test cases: XX
-- Critical: XX | High: XX | Medium: XX | Low: XX
-- Estimated testing time: XX minutes
+### UAT-002: [Test Case Title]
+**Story**: US-XXX — [Story Title]
+**Priority**: High
+**Preconditions**: [preconditions]
+
+| Step | Action | Expected Result |
+|------|--------|----------------|
+| 1 | [action] | [expected] |
+| 2 | [action] | [expected] |
+| 3 | [action] | [expected] |
+
+**Test Data**: [data needed]
+**Result**: [ ] Pass  [ ] Fail  [ ] Blocked  [ ] Skipped
+**Notes**: _[tester fills in]_
+
+---
+
+[Repeat for ALL test cases across ALL stories in the sprint]
+
+---
+
+## Priority Breakdown
+- **Critical**: [count] test cases — Must ALL pass for UAT approval
+- **High**: [count] test cases — Must ALL pass for UAT approval
+- **Medium**: [count] test cases — Max 2 failures allowed
+- **Low**: [count] test cases — Informational, failures logged as backlog items
+
+## Testing Instructions
+1. Open http://localhost:4200 in your browser
+2. Follow each test case in order (Critical first, then High, Medium, Low)
+3. Mark each test case as Pass/Fail/Blocked/Skipped
+4. For any Fail: note the actual behavior vs expected
+5. When done: run `/uat-setup report [sprint]` to submit results
+6. When finished testing: run `/uat-setup teardown` to stop all services
 ```
 
 ---
